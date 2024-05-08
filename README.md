@@ -1,9 +1,15 @@
 ### Run App
 
 ```
+python -m venv env
 . env/Scripts/activate
 cd footie
 python manage.py runserver
+```
+
+### Create new file
+```
+python manage.py startapp auth
 ```
 
 ### Migration

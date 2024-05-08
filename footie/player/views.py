@@ -1,30 +1,20 @@
-from django.shortcuts import render
-from .models import Player
-from common.util import response
-from django.views import View
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
 
-@method_decorator(csrf_exempt, name='dispatch')  # Only needed if you're using CSRF protection
-class PlayerView(View):
-    # def post(self, request):
-    #     # Handle POST request
-    #     data = request.POST  # If form data is sent
-    #     # or
-    #     data = request.body  # If JSON data is sent
-    #     # Process the data and save to the database
-    #     # Example:
-    #     YourModel.objects.create(**data)
-    #     return JsonResponse({'message': 'Data saved successfully'}, status=201)
-    
-    # def put(self, request):
-    #     # Handle PUT request
-    #     data = request.body  # JSON data
-    #     # Process the data and update the database
-    #     # Example:
-    #     YourModel.objects.filter(id=data['id']).update(**data)
-    #     return JsonResponse({'message': 'Data updated successfully'})
+from rest_framework.decorators import api_view
+from player.models import Player
+from .serializers import PlayerSerializer
 
-    def get(self, request):
-        players = Player.objects.all()
-        return response(list(players), 200)
+@api_view(['GET'])
+def getAllPlayer(request):
+    players = Player.objects.all()
+    serializer = PlayerSerializer(players, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def createPlayer(request):
+    serializer = PlayerSerializer(data=request.data)
+    print(serializer)
+    print(serializer.is_valid())
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
