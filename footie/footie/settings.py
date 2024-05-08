@@ -45,8 +45,7 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK = { 
     'DEFAULT_AUTHENTICATION_CLASSES': [],
-    'DEFAULT_PERMISSION_CLASSES': [],
-    'UNAUTHENTICATED_USER': None,
+    'UNAUTHENTICATED_USER': None
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
