@@ -15,8 +15,6 @@ def getAllPlayer(request):
 @api_view(['POST'])
 def createPlayer(request):
     serializer = PlayerSerializer(data=request.data)
-    print(serializer)
-    print(serializer.is_valid())
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)

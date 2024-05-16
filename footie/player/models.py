@@ -4,7 +4,7 @@ from game.models import Game
 class Player(models.Model):
 
     id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=60)
+    username = models.CharField(max_length=60, null=True, default=None)
     email =  models.CharField(max_length=120)
     password = models.TextField()
 
